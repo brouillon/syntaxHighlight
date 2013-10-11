@@ -40,6 +40,7 @@ Pour afficher le code coloré, ajoutez dans le head de votre page :
 <link href="PathToSyntaxHighlight/SyntaxHighlighter/styles/TheStyleYouWant" rel="stylesheet" type="text/css" />
 ```
 Remplacez 'PathToSyntaxHighlight' par l'adresse du dossier SyntaxHighlight
+
 Remplacez 'TheStyleYouWant' par le nom du fichier de style que vous souhaitez utiliser
 
 Dans onLoad ou en fin de page :
@@ -88,4 +89,5 @@ http://www.gnu.org/licenses/lgpl.html
 Credits
 -------
 SyntaxHighlighter by alex Gorbatchev http://alexgorbatchev.com/SyntaxHighlighter/ Licence MIT
+
 Icon by Jigsoar License: Creative Commons (Attribution 3.0 Unported)

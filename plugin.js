@@ -16,8 +16,9 @@ tinymce.PluginManager.add('syntaxHighlight', function(editor, url) {
 
 	function showDialog() {
 
-		var selection 	= editor.selection,
-			dom 		= editor.dom,
+		var selection 			= editor.selection,
+			dom 				= editor.dom,
+			selectionContent 	= selection.getContent(),
 			rBrush, rBrushLen, i;
 
 		//clear
@@ -60,7 +61,7 @@ tinymce.PluginManager.add('syntaxHighlight', function(editor, url) {
 		}
 
 		//is there a selection
-		if (selectedNode.nodeName == 'BODY') {
+		if (selectedNode.nodeName == 'BODY' && selectionContent.length == 0) {
 			hadSelection = false;
 		}
 		//a block of code
@@ -71,9 +72,17 @@ tinymce.PluginManager.add('syntaxHighlight', function(editor, url) {
 		//Something else, select parent
 		else {
 			hadSelection = true;
-			//Select the parent
-			selectedNode = dom.getParent(selectedNode);
-			shSettings.codebox = dom.getParent(selectedNode).textContent.replace(/\&lt\;/g, "<").replace(/\&gt\;/g, ">");
+			//more than one block selected
+			if (selectedNode.nodeName == 'BODY') {
+				selectedNode = selection.getSelectedBlocks();
+				shSettings.codebox = selectionContent.replace(/<br \/>/g, "\r\n").replace(/(<[^>]*>)/g, '').replace(/&nbsp;/g, '');
+			}
+			else {
+
+				//Select the parent
+				selectedNode = dom.getParent(selectedNode);
+				shSettings.codebox = dom.getParent(selectedNode).textContent.replace(/<br \/>/g, "\r\n").replace(/\&lt\;/g, "<").replace(/\&gt\;/g, ">");
+			}
 		}
 
 		//Select brush
